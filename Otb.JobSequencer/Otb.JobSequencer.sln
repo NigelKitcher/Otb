@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.Contracts", "Otb.JobSequencer.Contracts\Otb.JobSequencer.Contracts.csproj", "{1DF0CF23-4941-40A3-85B9-EE5560857EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.Spec", "Otb.JobSequencer.Spec\Otb.JobSequencer.Spec.csproj", "{A7579BFA-3E3B-4F7E-9655-9189988235F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.Service", "Otb.JobSequencer.Service\Otb.JobSequencer.Service.csproj", "{D9AB27A7-F744-43BC-8784-47B6A746976A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B89F5D4-7BC2-4583-9175-7A00C16BB6C4}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis.ruleset = CodeAnalysis.ruleset
+		DomainDictionary.xml = DomainDictionary.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DF0CF23-4941-40A3-85B9-EE5560857EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF0CF23-4941-40A3-85B9-EE5560857EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF0CF23-4941-40A3-85B9-EE5560857EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF0CF23-4941-40A3-85B9-EE5560857EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7579BFA-3E3B-4F7E-9655-9189988235F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7579BFA-3E3B-4F7E-9655-9189988235F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7579BFA-3E3B-4F7E-9655-9189988235F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7579BFA-3E3B-4F7E-9655-9189988235F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9AB27A7-F744-43BC-8784-47B6A746976A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9AB27A7-F744-43BC-8784-47B6A746976A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9AB27A7-F744-43BC-8784-47B6A746976A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9AB27A7-F744-43BC-8784-47B6A746976A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {337031BF-154D-4735-A488-FA581124A910}
+	EndGlobalSection
+EndGlobal

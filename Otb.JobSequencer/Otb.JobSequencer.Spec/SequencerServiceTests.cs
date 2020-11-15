@@ -11,7 +11,6 @@ namespace Otb.JobSequencer.Spec
     [TestClass]
     public class SequencerServiceTests
     {
-
         private ISequencerService _sequencerService;
 
         [TestInitialize]
@@ -150,6 +149,94 @@ namespace Otb.JobSequencer.Spec
                 new Job("D", "A"),
                 new Job("E"),
                 new Job("F", "B")
+            };
+
+            // Act
+            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+
+            // Assert
+        }
+
+        [TestMethod]
+        public void Given_a_job_with_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
+        {
+            // Arrange
+            var jobs = new List<Job>
+            {
+                new Job("A"),
+                new Job("B", "A"),
+            };
+
+            // Act
+            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.That.IsOrdered(new Tuple<string, string>("A", "B"), result);
+        }
+
+        [TestMethod]
+        public void Given_a_job_with_a_forwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
+        {
+            // Arrange
+            var jobs = new List<Job>
+            {
+                new Job("A", "B"),
+                new Job("B"),
+            };
+
+            // Act
+            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.That.IsOrdered(new Tuple<string, string>("B", "A"), result);
+        }
+
+        [TestMethod]
+        public void Given_a_job_with_a_forwards_dependency_to_a_job_that_has_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_three_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
+        {
+            // Arrange
+            var jobs = new List<Job>
+            {
+                new Job("A", "C"),
+                new Job("B"),
+                new Job("C", "B")
+            };
+
+            // Act
+            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+
+            // Assert
+            Assert.AreEqual(3, result.Count);
+            Assert.That.IsOrdered(new Tuple<string, string>("B", "C"), result);
+            Assert.That.IsOrdered(new Tuple<string, string>("C", "A"), result);
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void Given_a_job_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
+        {
+            // Arrange
+            var jobs = new List<Job>
+            {
+                new Job("A", "A")
+            };
+
+            // Act
+            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+
+            // Assert
+        }
+
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void Given_two_jobs_with_a_circular_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
+        {
+            // Arrange
+            var jobs = new List<Job>
+            {
+                new Job("A", "B"),
+                new Job("B", "A")
             };
 
             // Act

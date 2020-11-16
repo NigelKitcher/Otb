@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Otb.JobSequencer.Service;
 
 namespace Otb.TestTools.UnitTesting.Spec
 {
@@ -12,10 +11,10 @@ namespace Otb.TestTools.UnitTesting.Spec
         public void Given_jobs_in_correct_order__When_IsOrdered_invoked_Then_test_passes()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B")
+                new FakeJob("A"),
+                new FakeJob("B")
             };
 
             // Act
@@ -28,10 +27,10 @@ namespace Otb.TestTools.UnitTesting.Spec
         public void Given_jobs_not_in_correct_order_When_IsOrdered_invoked_Then_test_fails_and_throws_AssertFailedException()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B")
+                new FakeJob("A"),
+                new FakeJob("B")
             };
 
             // Act

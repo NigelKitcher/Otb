@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Otb.JobSequencer.Spec")]
 namespace Otb.JobSequencer.Service
 {
-    public class JobRequestParser
+    internal class JobRequestParser
     {
         private const int JobNameStartPosition = 0;
         private const int DependencyNameStartPosition = 5;
@@ -19,12 +21,12 @@ namespace Otb.JobSequencer.Service
             return name;
         }
 
-        private string GetJobName(string line)
+        private static string GetJobName(string line)
         {
             return GetName(line, JobNameStartPosition);
         }
 
-        private string GetDependency(string line)
+        private static string GetDependency(string line)
         {
             return GetName(line, DependencyNameStartPosition);
         }

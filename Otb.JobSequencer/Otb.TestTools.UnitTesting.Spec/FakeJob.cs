@@ -1,6 +1,6 @@
 ﻿using Otb.NodeSequencer.Service;
 
-namespace Otb.NodeSequencer.Spec
+namespace Otb.TestTools.UnitTesting.Spec
 {
     public class FakeJob : INode
     {

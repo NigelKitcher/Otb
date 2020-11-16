@@ -2,7 +2,7 @@
 
 namespace Otb.JobSequencer.Service
 {
-    public class Job : INode
+    internal class Job : INode
     {
         public string Name { get; }
         public string Dependency { get; }

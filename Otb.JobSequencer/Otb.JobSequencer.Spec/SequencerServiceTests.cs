@@ -229,7 +229,6 @@ namespace Otb.JobSequencer.Spec
             // Assert
         }
 
-
         [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
         public void Given_two_jobs_with_a_circular_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {

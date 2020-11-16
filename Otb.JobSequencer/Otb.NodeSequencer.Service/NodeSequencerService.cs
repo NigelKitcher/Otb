@@ -4,6 +4,14 @@ using System.Linq;
 
 namespace Otb.NodeSequencer.Service
 {
+    /// <summary>
+    /// Generic implementation of Depth-First method of ordering nodes
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="Otb.NodeSequencer.Service.INodeSequencerService{T}" />
+    /// <remarks>
+    /// Source: https://en.wikipedia.org/wiki/Topological_sorting
+    /// </remarks>
     public class NodeSequencerService<T> : INodeSequencerService<T> 
         where T : INode
     {
@@ -43,15 +51,6 @@ namespace Otb.NodeSequencer.Service
         private bool NodesExistWithoutPermanentMark() =>
             _nodeWrappers.Any(x => !x.IsPermanent);
 
-        /// <summary>
-        /// Gets the topological ordering.
-        /// </summary>
-        /// <param name="nodes">The Nodes.</param>
-        /// <remarks>
-        /// This uses the Depth-First search method
-        /// Source: https://en.wikipedia.org/wiki/Topological_sorting
-        /// </remarks>
-        /// <returns></returns>
         public IEnumerable<T> GetTopologicalOrdering(IEnumerable<T> nodes)
         {
             _nodeWrappers = GetNodeWrappers(nodes);

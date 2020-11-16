@@ -39,7 +39,7 @@ namespace Otb.JobSequencer.Service
             _jobWrappers.First(x => !x.IsPermanent);
 
         private bool JobsExistWithoutPermanentMark() =>
-            _jobWrappers.Count(x => !x.IsPermanent) > 0;
+            _jobWrappers.Any(x => !x.IsPermanent);
 
         /// <summary>
         /// Gets the topological ordering.

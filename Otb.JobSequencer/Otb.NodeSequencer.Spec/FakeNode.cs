@@ -2,18 +2,18 @@
 
 namespace Otb.NodeSequencer.Spec
 {
-    public class FakeJob : INode
+    internal class FakeNode : INode
     {
         public string Name { get; }
         public string Dependency { get; }
 
-        public FakeJob(string name, string dependency)
+        public FakeNode(string name, string dependency)
         {
             Name = name;
             Dependency = dependency;
         }
 
-        public FakeJob(string name)
+        public FakeNode(string name)
         {
             Name = name;
             Dependency = string.Empty;

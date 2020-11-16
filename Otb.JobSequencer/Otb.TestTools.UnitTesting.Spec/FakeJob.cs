@@ -2,7 +2,7 @@
 
 namespace Otb.TestTools.UnitTesting.Spec
 {
-    public class FakeJob : INode
+    internal class FakeJob : INode
     {
         public string Name { get; }
         public string Dependency { get; }

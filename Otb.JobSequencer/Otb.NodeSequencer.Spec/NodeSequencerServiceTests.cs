@@ -10,37 +10,37 @@ namespace Otb.NodeSequencer.Spec
     [TestClass]
     public class NodeSequencerServiceTests
     {
-        private INodeSequencerService<FakeJob> _sequencerService;
+        private INodeSequencerService<FakeNode> _sequencerService;
 
         [TestInitialize]
         public void Initialise()
         {
-            _sequencerService = new NodeSequencerService<FakeJob>();
+            _sequencerService = new NodeSequencerService<FakeNode>();
         }
 
         [TestMethod]
-        public void Given_no_jobs_When_GetTopologicalOrdering_is_invoked_Then_returns_no_job()
+        public void Given_no_nodes_When_GetTopologicalOrdering_is_invoked_Then_returns_no_node()
         {
             // Arrange
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(new List<FakeJob>()).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(new List<FakeNode>()).ToList();
 
             // Assert
             Assert.AreEqual(0, result.Count);
         }
 
         [TestMethod]
-        public void Given_a_job_When_GetTopologicalOrdering_is_invoked_Then_returns_one_job()
+        public void Given_a_node_When_GetTopologicalOrdering_is_invoked_Then_returns_one_node()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A")
+                new FakeNode("A")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(1, result.Count);
@@ -48,18 +48,18 @@ namespace Otb.NodeSequencer.Spec
         }
 
         [TestMethod]
-        public void Given_three_jobs_When_GetTopologicalOrdering_is_invoked_Then_returns_the_three_jobs_in_no_specific_order()
+        public void Given_three_nodes_When_GetTopologicalOrdering_is_invoked_Then_returns_the_three_nodes_in_no_specific_order()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A"),
-                new FakeJob("B"),
-                new FakeJob("C")
+                new FakeNode("A"),
+                new FakeNode("B"),
+                new FakeNode("C")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(3, result.Count);
@@ -69,18 +69,18 @@ namespace Otb.NodeSequencer.Spec
         }
 
         [TestMethod]
-        public void Given_three_jobs_where_one_has_a_dependency_and_one_does_not_When_GetTopologicalOrdering_is_invoked_Then_returns_the_three_jobs_and_dependency_in_correct_order()
+        public void Given_three_nodes_where_one_has_a_dependency_and_one_does_not_When_GetTopologicalOrdering_is_invoked_Then_returns_the_three_nodes_and_dependency_in_correct_order()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A"),
-                new FakeJob("B", "C"),
-                new FakeJob("C")
+                new FakeNode("A"),
+                new FakeNode("B", "C"),
+                new FakeNode("C")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(3, result.Count);
@@ -89,21 +89,21 @@ namespace Otb.NodeSequencer.Spec
         }
 
         [TestMethod]
-        public void Given_jobs_with_multiple_references_as_per_fourth_test_case_from_requirements()
+        public void Given_nodes_with_multiple_references_as_per_fourth_test_case_from_requirements()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A"),
-                new FakeJob("B", "C"),
-                new FakeJob("C", "F"),
-                new FakeJob("D", "A"),
-                new FakeJob("E", "B"),
-                new FakeJob("F")
+                new FakeNode("A"),
+                new FakeNode("B", "C"),
+                new FakeNode("C", "F"),
+                new FakeNode("D", "A"),
+                new FakeNode("E", "B"),
+                new FakeNode("F")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(6, result.Count);
@@ -119,55 +119,55 @@ namespace Otb.NodeSequencer.Spec
             Assert.That.IsOrdered(new Tuple<string, string>("A", "D"), result);
         }
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
-        public void Given_three_jobs_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeNodes can not have circular dependencies")]
+        public void Given_three_nodes_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A"),
-                new FakeJob("B"),
-                new FakeJob("C", "C")
+                new FakeNode("A"),
+                new FakeNode("B"),
+                new FakeNode("C", "C")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
         }
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
-        public void Given_a_list_of_jobs_that_have_circular_dependency_as_per_sixth_case_in_requirements_When_GetTopologicalOrdering_is_invoked_Then_Exception_thrown()
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeNodes can not have circular dependencies")]
+        public void Given_a_list_of_nodes_that_have_circular_dependency_as_per_sixth_case_in_requirements_When_GetTopologicalOrdering_is_invoked_Then_Exception_thrown()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A"),
-                new FakeJob("B", "C"),
-                new FakeJob("C", "F"),
-                new FakeJob("D", "A"),
-                new FakeJob("E"),
-                new FakeJob("F", "B")
+                new FakeNode("A"),
+                new FakeNode("B", "C"),
+                new FakeNode("C", "F"),
+                new FakeNode("D", "A"),
+                new FakeNode("E"),
+                new FakeNode("F", "B")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
         }
 
         [TestMethod]
-        public void Given_a_job_with_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
+        public void Given_a_node_with_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_nodes_GetTopologicalOrdering_is_invoked_with_correct_order()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A"),
-                new FakeJob("B", "A"),
+                new FakeNode("A"),
+                new FakeNode("B", "A"),
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(2, result.Count);
@@ -175,17 +175,17 @@ namespace Otb.NodeSequencer.Spec
         }
 
         [TestMethod]
-        public void Given_a_job_with_a_forwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
+        public void Given_a_node_with_a_forwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_nodes_GetTopologicalOrdering_is_invoked_with_correct_order()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A", "B"),
-                new FakeJob("B"),
+                new FakeNode("A", "B"),
+                new FakeNode("B"),
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(2, result.Count);
@@ -193,18 +193,18 @@ namespace Otb.NodeSequencer.Spec
         }
 
         [TestMethod]
-        public void Given_a_job_with_a_forwards_dependency_to_a_job_that_has_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_three_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
+        public void Given_a_node_with_a_forwards_dependency_to_a_node_that_has_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_three_nodes_GetTopologicalOrdering_is_invoked_with_correct_order()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A", "C"),
-                new FakeJob("B"),
-                new FakeJob("C", "B")
+                new FakeNode("A", "C"),
+                new FakeNode("B"),
+                new FakeNode("C", "B")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
             Assert.AreEqual(3, result.Count);
@@ -212,34 +212,34 @@ namespace Otb.NodeSequencer.Spec
             Assert.That.IsOrdered(new Tuple<string, string>("C", "A"), result);
         }
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
-        public void Given_a_job_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeNodes can not have circular dependencies")]
+        public void Given_a_node_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A", "A")
+                new FakeNode("A", "A")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
         }
 
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
-        public void Given_two_jobs_with_a_circular_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeNodes can not have circular dependencies")]
+        public void Given_two_nodes_with_a_circular_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
-            var jobs = new List<FakeJob>
+            var nodes = new List<FakeNode>
             {
-                new FakeJob("A", "B"),
-                new FakeJob("B", "A")
+                new FakeNode("A", "B"),
+                new FakeNode("B", "A")
             };
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(jobs).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(nodes).ToList();
 
             // Assert
         }

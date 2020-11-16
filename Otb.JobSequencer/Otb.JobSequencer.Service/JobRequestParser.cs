@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Otb.NodeSequencer.Service;
 
 [assembly: InternalsVisibleTo("Otb.JobSequencer.Spec")]
 namespace Otb.JobSequencer.Service
@@ -67,9 +68,9 @@ namespace Otb.JobSequencer.Service
         {
             foreach (var job in jobs)
             {
-                if (!job.HasDependency) continue;
+                if (!(job is LinkedJob)) continue;
 
-                if (jobs.All(x => x.Name != job.Dependency)) throw new ArgumentException($"Missing definition for job {job.Dependency}");
+                if (jobs.All(x => x.Name != ((ILinkedNode)job).Dependency)) throw new ArgumentException($"Missing definition for job {((ILinkedNode)job).Dependency}");
             }
 
         }
@@ -94,7 +95,7 @@ namespace Otb.JobSequencer.Service
                 {
                     var dependency = GetDependency(line);
                     if (dependency == name) throw new ArgumentException("Jobs can not depend on themselves");
-                    jobs.Add(new Job(name, dependency));
+                    jobs.Add(new LinkedJob(name, dependency));
                 }
             }
 

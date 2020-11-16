@@ -3,6 +3,7 @@ using Otb.JobSequencer.Service;
 using Otb.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using Otb.NodeSequencer.Service;
 
 namespace Otb.JobSequencer.Spec
 {
@@ -56,7 +57,6 @@ namespace Otb.JobSequencer.Spec
             var results = result.ToList();
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("A", results[0].Name);
-            Assert.IsFalse(results[0].HasDependency);
         }
 
         [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Missing definition for job B")]
@@ -96,10 +96,8 @@ namespace Otb.JobSequencer.Spec
             var results = result.ToList();
             Assert.AreEqual(2, results.Count);
             Assert.AreEqual("A", results[0].Name);
-            Assert.AreEqual("B", results[0].Dependency);
-            Assert.IsTrue(results[0].HasDependency);
+            Assert.AreEqual("B", ((ILinkedNode)results[0]).Dependency);
             Assert.AreEqual("B", results[1].Name);
-            Assert.IsFalse(results[1].HasDependency);
         }
 
         [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Job name is not an alpha character")]

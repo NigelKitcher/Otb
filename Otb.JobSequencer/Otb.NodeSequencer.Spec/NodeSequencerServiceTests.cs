@@ -75,7 +75,7 @@ namespace Otb.NodeSequencer.Spec
             var nodes = new List<FakeNode>
             {
                 new FakeNode("A"),
-                new FakeNode("B", "C"),
+                new FakeLinkedNode("B", "C"),
                 new FakeNode("C")
             };
 
@@ -95,10 +95,10 @@ namespace Otb.NodeSequencer.Spec
             var nodes = new List<FakeNode>
             {
                 new FakeNode("A"),
-                new FakeNode("B", "C"),
-                new FakeNode("C", "F"),
-                new FakeNode("D", "A"),
-                new FakeNode("E", "B"),
+                new FakeLinkedNode("B", "C"),
+                new FakeLinkedNode("C", "F"),
+                new FakeLinkedNode("D", "A"),
+                new FakeLinkedNode("E", "B"),
                 new FakeNode("F")
             };
 
@@ -127,7 +127,7 @@ namespace Otb.NodeSequencer.Spec
             {
                 new FakeNode("A"),
                 new FakeNode("B"),
-                new FakeNode("C", "C")
+                new FakeLinkedNode("C", "C")
             };
 
             // Act
@@ -143,11 +143,11 @@ namespace Otb.NodeSequencer.Spec
             var nodes = new List<FakeNode>
             {
                 new FakeNode("A"),
-                new FakeNode("B", "C"),
-                new FakeNode("C", "F"),
-                new FakeNode("D", "A"),
+                new FakeLinkedNode("B", "C"),
+                new FakeLinkedNode("C", "F"),
+                new FakeLinkedNode("D", "A"),
                 new FakeNode("E"),
-                new FakeNode("F", "B")
+                new FakeLinkedNode("F", "B")
             };
 
             // Act
@@ -163,7 +163,7 @@ namespace Otb.NodeSequencer.Spec
             var nodes = new List<FakeNode>
             {
                 new FakeNode("A"),
-                new FakeNode("B", "A"),
+                new FakeLinkedNode("B", "A"),
             };
 
             // Act
@@ -180,7 +180,7 @@ namespace Otb.NodeSequencer.Spec
             // Arrange
             var nodes = new List<FakeNode>
             {
-                new FakeNode("A", "B"),
+                new FakeLinkedNode("A", "B"),
                 new FakeNode("B"),
             };
 
@@ -198,9 +198,9 @@ namespace Otb.NodeSequencer.Spec
             // Arrange
             var nodes = new List<FakeNode>
             {
-                new FakeNode("A", "C"),
+                new FakeLinkedNode("A", "C"),
                 new FakeNode("B"),
-                new FakeNode("C", "B")
+                new FakeLinkedNode("C", "B")
             };
 
             // Act
@@ -218,7 +218,7 @@ namespace Otb.NodeSequencer.Spec
             // Arrange
             var nodes = new List<FakeNode>
             {
-                new FakeNode("A", "A")
+                new FakeLinkedNode("A", "A")
             };
 
             // Act
@@ -234,8 +234,8 @@ namespace Otb.NodeSequencer.Spec
             // Arrange
             var nodes = new List<FakeNode>
             {
-                new FakeNode("A", "B"),
-                new FakeNode("B", "A")
+                new FakeLinkedNode("A", "B"),
+                new FakeLinkedNode("B", "A")
             };
 
             // Act

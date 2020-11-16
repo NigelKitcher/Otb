@@ -38,7 +38,8 @@ namespace Otb.NodeSequencer.Service
 
         private IEnumerable<NodeWrapper<T>> GetNodesDependentOnNode(T node)
         {
-            var reliantNodeWrappers = _nodeWrappers.Where(x => x.Node.Dependency == node.Name);
+            var nodesWithDependencies = _nodeWrappers.Where(x => x.Node is ILinkedNode);
+            var reliantNodeWrappers = nodesWithDependencies.Where(x => ((ILinkedNode)x.Node).Dependency == node.Name);
             return reliantNodeWrappers;
         }
 

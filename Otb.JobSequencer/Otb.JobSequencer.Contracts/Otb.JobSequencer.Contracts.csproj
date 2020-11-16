@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Otb.NodeSequencer.Service\Otb.NodeSequencer.Service.csproj" />
+  </ItemGroup>
+
 </Project>

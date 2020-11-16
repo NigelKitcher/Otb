@@ -1,5 +1,6 @@
 ﻿using System;
 using Otb.JobSequencer.Service;
+using Otb.NodeSequencer.Service;
 
 namespace Otb.JobSequencer.ConsoleApp
 {
@@ -8,7 +9,7 @@ namespace Otb.JobSequencer.ConsoleApp
         static void Main(string[] args)
         {
             var jobRequestParser = new JobRequestParser();
-            var sequencerService = new SequencerService();
+            var sequencerService = new NodeSequencerService<Job>();
 
             var input = "A => B" + Environment.NewLine + "B =>";
 

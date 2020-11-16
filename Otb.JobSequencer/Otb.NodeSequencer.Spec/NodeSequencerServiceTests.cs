@@ -1,23 +1,21 @@
-﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
-using Otb.JobSequencer.Contracts;
-using Otb.JobSequencer.Service;
 using Otb.NodeSequencer.Service;
 using Otb.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Otb.JobSequencer.Spec
+namespace Otb.NodeSequencer.Spec
 {
     [TestClass]
-    public class SequencerServiceTests
+    public class NodeSequencerServiceTests
     {
-        private INodeSequencerService<Job> _sequencerService;
+        private INodeSequencerService<FakeJob> _sequencerService;
 
         [TestInitialize]
         public void Initialise()
         {
-            _sequencerService = new NodeSequencerService<Job>();
+            _sequencerService = new NodeSequencerService<FakeJob>();
         }
 
         [TestMethod]
@@ -26,7 +24,7 @@ namespace Otb.JobSequencer.Spec
             // Arrange
 
             // Act
-            var result = _sequencerService.GetTopologicalOrdering(new List<Job>()).ToList();
+            var result = _sequencerService.GetTopologicalOrdering(new List<FakeJob>()).ToList();
 
             // Assert
             Assert.AreEqual(0, result.Count);
@@ -36,9 +34,9 @@ namespace Otb.JobSequencer.Spec
         public void Given_a_job_When_GetTopologicalOrdering_is_invoked_Then_returns_one_job()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A")
+                new FakeJob("A")
             };
 
             // Act
@@ -53,11 +51,11 @@ namespace Otb.JobSequencer.Spec
         public void Given_three_jobs_When_GetTopologicalOrdering_is_invoked_Then_returns_the_three_jobs_in_no_specific_order()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B"),
-                new Job("C")
+                new FakeJob("A"),
+                new FakeJob("B"),
+                new FakeJob("C")
             };
 
             // Act
@@ -74,11 +72,11 @@ namespace Otb.JobSequencer.Spec
         public void Given_three_jobs_where_one_has_a_dependency_and_one_does_not_When_GetTopologicalOrdering_is_invoked_Then_returns_the_three_jobs_and_dependency_in_correct_order()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B", "C"),
-                new Job("C")
+                new FakeJob("A"),
+                new FakeJob("B", "C"),
+                new FakeJob("C")
             };
 
             // Act
@@ -94,14 +92,14 @@ namespace Otb.JobSequencer.Spec
         public void Given_jobs_with_multiple_references_as_per_fourth_test_case_from_requirements()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B", "C"),
-                new Job("C", "F"),
-                new Job("D", "A"),
-                new Job("E", "B"),
-                new Job("F")
+                new FakeJob("A"),
+                new FakeJob("B", "C"),
+                new FakeJob("C", "F"),
+                new FakeJob("D", "A"),
+                new FakeJob("E", "B"),
+                new FakeJob("F")
             };
 
             // Act
@@ -121,15 +119,15 @@ namespace Otb.JobSequencer.Spec
             Assert.That.IsOrdered(new Tuple<string, string>("A", "D"), result);
         }
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
         public void Given_three_jobs_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B"),
-                new Job("C", "C")
+                new FakeJob("A"),
+                new FakeJob("B"),
+                new FakeJob("C", "C")
             };
 
             // Act
@@ -138,18 +136,18 @@ namespace Otb.JobSequencer.Spec
             // Assert
         }
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
         public void Given_a_list_of_jobs_that_have_circular_dependency_as_per_sixth_case_in_requirements_When_GetTopologicalOrdering_is_invoked_Then_Exception_thrown()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B", "C"),
-                new Job("C", "F"),
-                new Job("D", "A"),
-                new Job("E"),
-                new Job("F", "B")
+                new FakeJob("A"),
+                new FakeJob("B", "C"),
+                new FakeJob("C", "F"),
+                new FakeJob("D", "A"),
+                new FakeJob("E"),
+                new FakeJob("F", "B")
             };
 
             // Act
@@ -162,10 +160,10 @@ namespace Otb.JobSequencer.Spec
         public void Given_a_job_with_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A"),
-                new Job("B", "A"),
+                new FakeJob("A"),
+                new FakeJob("B", "A"),
             };
 
             // Act
@@ -180,10 +178,10 @@ namespace Otb.JobSequencer.Spec
         public void Given_a_job_with_a_forwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_two_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A", "B"),
-                new Job("B"),
+                new FakeJob("A", "B"),
+                new FakeJob("B"),
             };
 
             // Act
@@ -198,11 +196,11 @@ namespace Otb.JobSequencer.Spec
         public void Given_a_job_with_a_forwards_dependency_to_a_job_that_has_a_backwards_dependency_When_GetTopologicalOrdering_is_invoked_Then_three_jobs_GetTopologicalOrdering_is_invoked_with_correct_order()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A", "C"),
-                new Job("B"),
-                new Job("C", "B")
+                new FakeJob("A", "C"),
+                new FakeJob("B"),
+                new FakeJob("C", "B")
             };
 
             // Act
@@ -214,13 +212,13 @@ namespace Otb.JobSequencer.Spec
             Assert.That.IsOrdered(new Tuple<string, string>("C", "A"), result);
         }
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
         public void Given_a_job_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A", "A")
+                new FakeJob("A", "A")
             };
 
             // Act
@@ -230,14 +228,14 @@ namespace Otb.JobSequencer.Spec
         }
 
 
-        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "FakeJobs can not have circular dependencies")]
         public void Given_two_jobs_with_a_circular_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
-            var jobs = new List<Job>
+            var jobs = new List<FakeJob>
             {
-                new Job("A", "B"),
-                new Job("B", "A")
+                new FakeJob("A", "B"),
+                new FakeJob("B", "A")
             };
 
             // Act

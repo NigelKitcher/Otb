@@ -1,8 +1,10 @@
-﻿namespace Otb.JobSequencer.Contracts
+﻿using Otb.NodeSequencer.Service;
+
+namespace Otb.JobSequencer.Contracts
 {
-    public interface IJob
+    public interface IJob : INode
     {
-        string Name { get; }
-        string Dependency { get; }
+        //string Name { get; }
+        //string Dependency { get; }
     }
 }

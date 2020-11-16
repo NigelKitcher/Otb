@@ -120,7 +120,7 @@ namespace Otb.JobSequencer.Spec
             Assert.That.IsOrdered(new Tuple<string, string>("A", "D"), result);
         }
 
-        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
         public void Given_three_jobs_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
@@ -137,8 +137,8 @@ namespace Otb.JobSequencer.Spec
             // Assert
         }
 
-        [TestMethod, ExpectedException(typeof(ArgumentException))]
-        public void Given_a_job_with_dependent_job_that_has_a_dependent_job_When_GetTopologicalOrdering_is_invoked_Then_three_jobs_returned_in_correct_order()
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
+        public void Given_a_list_of_jobs_that_have_circular_dependency_as_per_sixth_case_in_requirements_When_GetTopologicalOrdering_is_invoked_Then_Exception_thrown()
         {
             // Arrange
             var jobs = new List<Job>
@@ -213,7 +213,7 @@ namespace Otb.JobSequencer.Spec
             Assert.That.IsOrdered(new Tuple<string, string>("C", "A"), result);
         }
 
-        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
         public void Given_a_job_with_a_self_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange
@@ -229,7 +229,7 @@ namespace Otb.JobSequencer.Spec
         }
 
 
-        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not have circular dependencies")]
         public void Given_two_jobs_with_a_circular_dependency_When_GetTopologicalOrdering_is_invoked_Then_exception_thrown()
         {
             // Arrange

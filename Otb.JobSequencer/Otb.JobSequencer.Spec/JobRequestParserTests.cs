@@ -59,8 +59,8 @@ namespace Otb.JobSequencer.Spec
             Assert.IsFalse(results[0].HasDependency);
         }
 
-        [TestMethod]
-        public void Given_a_string_has_the_maps_to_characters_and_dependency_When_GetJobs_is_invoked_Then_job_with_dependency_returned()
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Missing definition for job B")]
+        public void Given_input_with_dependency_and_dependency_is_missing_When_GetJobs_is_invoked_Then_Exception_Thrown()
         {
             // Arrange
             var jobRequest = "A => B";
@@ -69,11 +69,25 @@ namespace Otb.JobSequencer.Spec
             var result = _jobParser.GetJobs(jobRequest);
 
             // Assert
+        }
+
+        [TestMethod]
+        public void Given_a_string_has_the_maps_to_characters_and_dependency_When_GetJobs_is_invoked_Then_jobs_returned()
+        {
+            // Arrange
+            var jobRequest = "A => B" + Environment.NewLine + "B =>";
+
+            // Act
+            var result = _jobParser.GetJobs(jobRequest);
+
+            // Assert
             var results = result.ToList();
-            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(2, results.Count);
             Assert.AreEqual("A", results[0].Name);
             Assert.AreEqual("B", results[0].Dependency);
             Assert.IsTrue(results[0].HasDependency);
+            Assert.AreEqual("B", results[1].Name);
+            Assert.IsFalse(results[1].HasDependency);
         }
 
         [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Job name is not an alpha character")]
@@ -98,26 +112,6 @@ namespace Otb.JobSequencer.Spec
             var result = _jobParser.GetJobs(jobRequest);
 
             // Assert
-        }
-
-        [TestMethod]
-        public void Given_a_string_has_multiple_lines_When_GetJobs_is_invoked_Then_multiple_jobs_returned()
-        {
-            // Arrange
-            var jobRequest = "A => B" + Environment.NewLine + "C => D";
-
-            // Act
-            var result = _jobParser.GetJobs(jobRequest);
-
-            // Assert
-            var results = result.ToList();
-            Assert.AreEqual(2, results.Count);
-            Assert.AreEqual("A", results[0].Name);
-            Assert.AreEqual("B", results[0].Dependency);
-            Assert.IsTrue(results[0].HasDependency);
-            Assert.AreEqual("C", results[1].Name);
-            Assert.AreEqual("D", results[1].Dependency);
-            Assert.IsTrue(results[1].HasDependency);
         }
 
         [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Invalid line length")]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Otb.JobSequencer.Service
 {
@@ -60,6 +61,17 @@ namespace Otb.JobSequencer.Service
             if (line.Length == ValidJobWithDependencyCharacterCount && line.Substring(4, 1) != " ") throw new Exception("Missing space");
         }
 
+        private static void CheckDependentsExist(List<Job> jobs)
+        {
+            foreach (var job in jobs)
+            {
+                if (!job.HasDependency) continue;
+
+                if (jobs.All(x => x.Name != job.Dependency)) throw new ArgumentException($"Missing definition for job {job.Dependency}");
+            }
+
+        }
+
         public IEnumerable<Job> GetJobs(string jobRequest)
         {
             if (jobRequest == null) throw new ArgumentNullException(nameof(jobRequest));
@@ -82,6 +94,8 @@ namespace Otb.JobSequencer.Service
                     jobs.Add(new Job(name, dependency));
                 }
             }
+
+            CheckDependentsExist(jobs);
 
             return jobs;
         }

@@ -18,5 +18,7 @@ namespace Otb.JobSequencer.Service
             Name = name;
             Dependency = string.Empty;
         }
+
+        public bool HasDependency => !string.IsNullOrEmpty(Dependency);
     }
 }

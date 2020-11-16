@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.Contracts", "Otb.JobSequencer.Contracts\Otb.JobSequencer.Contracts.csproj", "{1DF0CF23-4941-40A3-85B9-EE5560857EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otb.JobSequencer.Contracts", "Otb.JobSequencer.Contracts\Otb.JobSequencer.Contracts.csproj", "{1DF0CF23-4941-40A3-85B9-EE5560857EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.Spec", "Otb.JobSequencer.Spec\Otb.JobSequencer.Spec.csproj", "{A7579BFA-3E3B-4F7E-9655-9189988235F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otb.JobSequencer.Spec", "Otb.JobSequencer.Spec\Otb.JobSequencer.Spec.csproj", "{A7579BFA-3E3B-4F7E-9655-9189988235F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.Service", "Otb.JobSequencer.Service\Otb.JobSequencer.Service.csproj", "{D9AB27A7-F744-43BC-8784-47B6A746976A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otb.JobSequencer.Service", "Otb.JobSequencer.Service\Otb.JobSequencer.Service.csproj", "{D9AB27A7-F744-43BC-8784-47B6A746976A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B89F5D4-7BC2-4583-9175-7A00C16BB6C4}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,9 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Spec.ruleset = Spec.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.TestTools.UnitTesting", "Otb.TestTools.UnitTesting\Otb.TestTools.UnitTesting.csproj", "{C93E7A11-0A1E-4907-87F5-422D29A1ED93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otb.TestTools.UnitTesting", "Otb.TestTools.UnitTesting\Otb.TestTools.UnitTesting.csproj", "{C93E7A11-0A1E-4907-87F5-422D29A1ED93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.TestTools.UnitTesting.Spec", "Otb.TestTools.UnitTesting.Spec\Otb.TestTools.UnitTesting.Spec.csproj", "{B2817C9D-E074-4D67-91AA-B8942586E724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otb.TestTools.UnitTesting.Spec", "Otb.TestTools.UnitTesting.Spec\Otb.TestTools.UnitTesting.Spec.csproj", "{B2817C9D-E074-4D67-91AA-B8942586E724}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otb.JobSequencer.ConsoleApp", "Otb.JobSequencer.ConsoleApp\Otb.JobSequencer.ConsoleApp.csproj", "{71B3E4C1-54A3-445C-B410-929D4ED2CB73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{B2817C9D-E074-4D67-91AA-B8942586E724}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2817C9D-E074-4D67-91AA-B8942586E724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2817C9D-E074-4D67-91AA-B8942586E724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B3E4C1-54A3-445C-B410-929D4ED2CB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B3E4C1-54A3-445C-B410-929D4ED2CB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B3E4C1-54A3-445C-B410-929D4ED2CB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B3E4C1-54A3-445C-B410-929D4ED2CB73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

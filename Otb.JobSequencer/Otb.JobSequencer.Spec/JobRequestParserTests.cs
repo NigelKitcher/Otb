@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Otb.JobSequencer.Spec
 {
-    [TestClass, Ignore]
+    [TestClass]
     public class JobRequestParserTests
     {
         private JobRequestParser _jobParser;
@@ -101,7 +101,7 @@ namespace Otb.JobSequencer.Spec
         }
 
         [TestMethod]
-        public void Given_a_string_has_multiple_lines_When_GetJobs_is_invoked_Then_multtiple_jobs_returned()
+        public void Given_a_string_has_multiple_lines_When_GetJobs_is_invoked_Then_multiple_jobs_returned()
         {
             // Arrange
             var jobRequest = "A => B" + Environment.NewLine + "C => D";
@@ -118,6 +118,54 @@ namespace Otb.JobSequencer.Spec
             Assert.AreEqual("C", results[1].Name);
             Assert.AreEqual("D", results[1].Dependency);
             Assert.IsTrue(results[1].HasDependency);
+        }
+
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Invalid line length")]
+        public void Given_a_string_has_incomplete_maps_to_characters_When_GetJobs_is_invoked_Then_Exception_thrown()
+        {
+            // Arrange
+            var jobRequest = "A =";
+
+            // Act
+            var result = _jobParser.GetJobs(jobRequest);
+
+            // Assert
+        }
+
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Missing pointer")]
+        public void Given_a_string_has_invalid_maps_to_characters_When_GetJobs_is_invoked_Then_Exception_thrown()
+        {
+            // Arrange
+            var jobRequest = "A ==";
+
+            // Act
+            var result = _jobParser.GetJobs(jobRequest);
+
+            // Assert
+        }
+
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Missing space")]
+        public void Given_a_string_has_does_not_have_space_after_job_name_When_GetJobs_is_invoked_Then_Exception_thrown()
+        {
+            // Arrange
+            var jobRequest = "A=>B";
+
+            // Act
+            var result = _jobParser.GetJobs(jobRequest);
+
+            // Assert
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+        public void Given_null_When_GetJobs_is_invoked_Then_Argument_Null_Exception_Thrown()
+        {
+            // Arrange
+            const string jobRequest = null;
+
+            // Act
+            var result = _jobParser.GetJobs(jobRequest);
+
+            // Assert
         }
     }
 }

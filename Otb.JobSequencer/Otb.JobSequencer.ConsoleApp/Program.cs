@@ -1,32 +1,22 @@
 ﻿using System;
 using Otb.JobSequencer.Service;
-using Otb.NodeSequencer.Service;
 
 namespace Otb.JobSequencer.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] _)
         {
-            var jobRequestParser = new JobRequestParser();
-            var sequencerService = new NodeSequencerService<Job>();
+            var sequencerService = new SequencerService();
 
             var input = "A => B" + Environment.NewLine + "B =>";
-
-            var jobs = jobRequestParser.GetJobs(input);
-
-            var sequencedJobs = sequencerService.GetTopologicalOrdering(jobs);
-
             Console.WriteLine("Input Jobs:");
             Console.WriteLine(input);
 
             Console.WriteLine("Sequenced Jobs:");
-            foreach (var job in sequencedJobs)
-            {
-                Console.Write(job.Name);
-            }
+            var output = sequencerService.GetTopologicalOrdering(input);
+            Console.WriteLine(output);
 
-            Console.WriteLine("");
             Console.WriteLine("Completed.");
         }
     }

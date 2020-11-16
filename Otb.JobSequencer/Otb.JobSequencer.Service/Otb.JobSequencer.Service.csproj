@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Otb.JobSequencer.Contracts\Otb.JobSequencer.Contracts.csproj" />
+    <ProjectReference Include="..\Otb.NodeSequencer.Service\Otb.NodeSequencer.Service.csproj" />
   </ItemGroup>
 
 </Project>

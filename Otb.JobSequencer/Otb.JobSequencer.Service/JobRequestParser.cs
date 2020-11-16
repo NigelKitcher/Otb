@@ -12,7 +12,7 @@ namespace Otb.JobSequencer.Service
         private const int ValidJobCharacterCount = 4;
         private const int ValidJobWithDependencyCharacterCount = 6;
 
-        private string GetName(string line, int startPosition)
+        private static string GetName(string line, int startPosition)
         {
             var name = line.Substring(startPosition, 1);
             if (!char.IsLetter(name[0])) throw new ArgumentException("Job name is not an alpha character");

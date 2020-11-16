@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Otb.NodeSequencer.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Otb.JobSequencer.Contracts;
 
 namespace Otb.TestTools.UnitTesting
 {
@@ -14,7 +14,7 @@ namespace Otb.TestTools.UnitTesting
         /// <param name="_">The assert.</param>
         /// <param name="expected">A tuple of two values denoting the order they show appear</param>
         /// <param name="actual">The actual collection of nodes</param>
-        public static void IsOrdered(this Assert _, Tuple<string, string> expected, IEnumerable<IJob> actual)
+        public static void IsOrdered(this Assert _, Tuple<string, string> expected, IEnumerable<INode> actual)
         {
             var actualOrder = actual.ToList();
             var dependency = expected.Item1;

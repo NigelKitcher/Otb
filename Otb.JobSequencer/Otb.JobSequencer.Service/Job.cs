@@ -1,8 +1,8 @@
-﻿using Otb.JobSequencer.Contracts;
+﻿using Otb.NodeSequencer.Service;
 
 namespace Otb.JobSequencer.Service
 {
-    public class Job : IJob
+    public class Job : INode
     {
         public string Name { get; }
         public string Dependency { get; }

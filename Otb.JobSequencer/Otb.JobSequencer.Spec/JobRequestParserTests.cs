@@ -71,6 +71,18 @@ namespace Otb.JobSequencer.Spec
             // Assert
         }
 
+        [TestMethod, ExpectedExceptionWithMessage(typeof(ArgumentException), "Jobs can not depend on themselves")]
+        public void Given_input_with_dependency_and_dependency_is_itself_When_GetJobs_is_invoked_Then_Exception_Thrown()
+        {
+            // Arrange
+            var jobRequest = "A => A";
+
+            // Act
+            var result = _jobParser.GetJobs(jobRequest);
+
+            // Assert
+        }
+
         [TestMethod]
         public void Given_a_string_has_the_maps_to_characters_and_dependency_When_GetJobs_is_invoked_Then_jobs_returned()
         {

@@ -91,6 +91,7 @@ namespace Otb.JobSequencer.Service
                 else
                 {
                     var dependency = GetDependency(line);
+                    if (dependency == name) throw new ArgumentException("Jobs can not depend on themselves");
                     jobs.Add(new Job(name, dependency));
                 }
             }
